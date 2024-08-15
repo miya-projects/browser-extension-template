@@ -1,6 +1,6 @@
 :host {
   display: block;
-  min-width: 360px;
+  min-width: 560px;
   min-height: 400px;
 }
 
@@ -29,4 +29,7 @@
 }
 [nz-row] {
   height: 33.3%;
+}
+[nz-row] > * {
+  height: 100%;
 }

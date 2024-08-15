@@ -24,3 +24,5 @@ history.replaceState = function (state, title, url) {
 window.addEventListener('popstate', function (event) {
   handleStateChange('popstate');
 });
+
+handleStateChange('pushState');

@@ -1,4 +1,5 @@
-import ScriptInjection = chrome.scripting.ScriptInjection;
+import Tab = chrome.tabs.Tab;
+import MessageSender = chrome.runtime.MessageSender;
 
 console.log("background script loaded")
 
@@ -8,28 +9,45 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
+// 消息监听
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log(sender.tab ?
-      "收到来自content script的消息:" + sender.tab.url :
-      "收到来自extension的消息:");
-    console.log(request)
-
-    if (sender.tab) {
-      chrome.scripting
-        .executeScript({
-          target : {tabId : sender.tab!.id},
-          func : getTitle,
-        } as ScriptInjection<any, string>)
-        .then((res: any) => console.log("injected a function", res.result));
+    let func = onMessageListeners[request.action]
+    if (func) {
+      return func(request, sender, sendResponse);
     }
-    sendResponse({farewell: "ok"});
+    console.log("接收到消息:" + JSON.stringify(request))
+    return true;
   }
 );
 
+// 消息监听器注册
+let onMessageListeners: {
+  [key: string]: ((message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean)
+} = {}
 
-function getTitle(): string {
-  console.log("getTitle")
-  return document.title;
+onMessageListeners['getCurrentTab'] = (request, sender, sendResponse) => {
+  chrome.tabs.query( {active: true, lastFocusedWindow: true}).then(res => {
+    sendResponse(res);
+  })
+  return true;
 }
 
+// 监听标签页切换事件，可能还没有网址
+chrome.tabs.onActivated.addListener(function (activeInfo: chrome.tabs.TabActiveInfo) {
+  chrome.tabs.get(activeInfo.tabId).then((tab: Tab) => {
+    chrome.action.setBadgeText({
+      text: tab.title!.charAt(0),
+    });
+  })
+})
+
+// 标签页切换时间，并更新网址的时候
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  if (!tab.url) {
+    return;
+  }
+  const url = new URL(tab.url);
+})
+
+chrome.sidePanel.setPanelBehavior({openPanelOnActionClick: false}).then(r =>{})

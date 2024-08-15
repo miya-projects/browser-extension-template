@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "浏览器插件",
-  "short_name": "浏览器插件",
+  "name": "Miya浏览器扩展",
+  "short_name": "Miya浏览器扩展脚手架",
   "version": "1.0.0",
-  "description": "浏览器插件脚手架描述",
+  "description": "Miya浏览器扩展脚手架描述",
   "permissions": [
     "sidePanel",
     "contextMenus",
@@ -19,7 +19,7 @@
   "action": {
     "default_icon": "image/icon.png",
     "default_popup": "index.html?#/popup",
-    "default_title": "Angular Chrome Extension"
+    "default_title": "Miya浏览器扩展"
   },
   "options_page": "index.html?#/options",
   "side_panel": {
