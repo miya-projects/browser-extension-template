@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "浏览器插件",
+  "short_name": "浏览器插件",
+  "version": "1.0.0",
+  "description": "浏览器插件脚手架描述",
+  "permissions": [
+    "sidePanel",
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "declarativeContent",
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_icon": "image/icon.png",
+    "default_popup": "index.html?#/popup",
+    "default_title": "Angular Chrome Extension"
+  },
+  "options_page": "index.html?#/options",
+  "side_panel": {
+    "default_path": "index.html?#/side-panel"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "js": ["contentScript.js"],
+      "matches": ["<all_urls>"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "serviceWorker.js"
+  },
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'self'" }
+}

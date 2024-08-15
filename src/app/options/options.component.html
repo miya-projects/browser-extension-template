@@ -1,0 +1,25 @@
+<!--<button nz-button>Print</button>-->
+<div class="container">
+  <!--<h1>Options</h1>-->
+
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="username">Username</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your username!">
+        <input nz-input formControlName="username" id="username" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
+        <input nz-input formControlName="password" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row>
+      <nz-form-control [nzSpan]="16" [nzOffset]="6">
+        <button nz-button nzType="primary">保存</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+</div>

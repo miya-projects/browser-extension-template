@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/browser",
+    "module": "esnext",
+    "target": "es2015",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/chrome/**/*.ts"
+  ]
+}

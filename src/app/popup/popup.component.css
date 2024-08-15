@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  min-width: 360px;
+  min-height: 400px;
+}
+
+.container {
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  height: 100vh;
+}
+
+
+[nz-form] {
+  max-width: 600px;
+}
+
+.ant-select.ant-select-in-form-item.phone-select {
+  width: 70px;
+}
+
+.register-area {
+  margin-bottom: 8px;
+}
+
+[nz-col] {
+  border: solid black 1px;
+}
+[nz-row] {
+  height: 33.3%;
+}
