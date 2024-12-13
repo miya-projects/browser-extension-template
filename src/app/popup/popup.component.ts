@@ -56,7 +56,7 @@ export class PopupComponent implements OnInit{
 
   registerDom() {
     chrome.tabs.query({active: true, lastFocusedWindow: true}).then(tabs => {
-      if (tabs.length < 0) {
+      if (tabs.length <= 0) {
         this.msgSrv.error("当前没有激活的标签页")
         return;
       }

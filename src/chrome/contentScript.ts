@@ -1,4 +1,6 @@
-import {createDomElement, generateRandomString, injectCssToWebsite, injectJsToWebsite} from "./module/util";
+import {createDomElement, generateRandomString, injectCssToWebsite, injectJsToWebsite} from "@chrome/module/util";
+import {debounceTime, of, Subject} from "rxjs";
+import {debounce} from "@chrome/util";
 
 console.debug("content script loaded")
 
@@ -10,7 +12,7 @@ chrome.runtime.onMessage.addListener (
     if (request.action === 'registerButton') {
       registerButton();
     } else {
-      console.log("content script收到消息" + JSON.stringify(request));
+      console.debug("content script收到消息" + JSON.stringify(request));
     }
     return true;
   }
@@ -23,8 +25,14 @@ document.addEventListener('historyStateChange', function(e: Event) {
   // if(location.href.indexOf("dppt.shanxi.chinatax.gov.cn:8443/blue-invoice-makeout/invoice-makeout")!=-1) {
   // }
   let data = (e as CustomEvent<any>).detail;
-  console.log('History method called:', data.type, data.url);
+  console.debug('History method called:', data.type, data.url);
 })
+
+const observer = new MutationObserver(debounce((mutations: MutationRecord[], observer: MutationObserver) => {
+  console.log('body变化')
+}, 1000));
+
+observer.observe(document.body, { childList: true, subtree: true });
 
 
 // 注册按钮到页面中
@@ -58,7 +66,7 @@ function registerButton() {
 
   function getCurrentTab() {
     chrome.runtime.sendMessage({action: "getCurrentTab"}).then(tabs => {
-      console.log("tabId: " + tabs[0].id)
+      console.debug("tabId: " + tabs[0].id)
     });
   }
 }

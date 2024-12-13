@@ -3,6 +3,7 @@ import MessageSender = chrome.runtime.MessageSender;
 
 console.log("background script loaded")
 
+// 设置扩展图标小圆点
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setBadgeText({
     text: "OFF",
@@ -34,13 +35,13 @@ onMessageListeners['getCurrentTab'] = (request, sender, sendResponse) => {
 }
 
 // 监听标签页切换事件，可能还没有网址
-chrome.tabs.onActivated.addListener(function (activeInfo: chrome.tabs.TabActiveInfo) {
-  chrome.tabs.get(activeInfo.tabId).then((tab: Tab) => {
-    chrome.action.setBadgeText({
-      text: tab.title!.charAt(0),
-    });
-  })
-})
+// chrome.tabs.onActivated.addListener(function (activeInfo: chrome.tabs.TabActiveInfo) {
+//   chrome.tabs.get(activeInfo.tabId).then((tab: Tab) => {
+//     chrome.action.setBadgeText({
+//       text: tab.title!.charAt(0),
+//     });
+//   })
+// })
 
 // 标签页切换时间，并更新网址的时候
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
@@ -48,6 +49,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     return;
   }
   const url = new URL(tab.url);
+  chrome.action.setBadgeText({
+    text: tab.title!.charAt(0),
+  });
 })
 
 chrome.sidePanel.setPanelBehavior({openPanelOnActionClick: false}).then(r =>{})

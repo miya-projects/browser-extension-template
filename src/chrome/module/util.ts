@@ -6,7 +6,7 @@
 export const injectJsToWebsite = function(url: string = 'inject.js') {
   const s = document.createElement('script');
   // @ts-ignore
-  s.src = chrome.runtime.getURL('inject.js');
+  s.src = chrome.runtime.getURL(url);
   (document.head||document.documentElement).appendChild(s);
   s.onload = function() {
     s.remove();

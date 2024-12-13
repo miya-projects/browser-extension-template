@@ -4,6 +4,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": ".",
+    "paths": {
+      "@chrome/*": ["src/chrome/*"],
+      "@app/*": ["src/app/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

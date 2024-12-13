@@ -6,7 +6,14 @@ import terser from '@rollup/plugin-terser'
 
 const production = !process.env.ROLLUP_WATCH
 
-const plugins = [resolve(), commonjs({ extensions: ['.js', '.ts'] }), production && terser()]
+const srcDir = 'src/chrome/'
+const outDir = 'dist/browser/'
+
+const plugins = [
+  resolve(),
+  commonjs({ extensions: ['.js', '.ts'] }),
+  production && terser(),
+]
 const compilerOptions = {
   target: 'es6',
   module: 'ESNext',
@@ -17,9 +24,6 @@ const compilerOptions = {
   //   "src/chrome/**/*.ts"
   // ]
 }
-
-const srcDir = 'src/chrome/'
-const outDir = 'dist/browser/'
 
 const generateConfigByIO = (input, output) => {
   return {
